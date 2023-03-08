@@ -20,22 +20,27 @@ async function title(url) {
     await page.goto(url);
     await page.waitForSelector('.container');
     let movie = await page.$eval('#season-dropdown', () => false).catch(() => true);
+    let links = []
     if (movie) {
+        links.push({
+            name: '',
+            link: url
+        });
+        return getSongs(links);
         //console.log('MOVIE');
     } else {
         //console.log('SERIE');
         let episodes = await page.$$('h3[class^="EpisodeListItem_title"]');
-        let episodesLinks = []
         for (let index = 0; index < episodes.length; index++) {
             let anchorElement = await episodes[index].$('a[href]');
             let episodeUrl = await anchorElement.evaluate(element => element.href);
             let episodeName = await anchorElement.evaluate(element => element.textContent);
-            episodesLinks.push({
+            links.push({
                 name: episodeName,
                 link: episodeUrl,
             });
         }
-        return getSongs(episodesLinks);
+        return getSongs(links);
     }
     // if (isAMovie(page)) {
     // } else {
@@ -45,9 +50,9 @@ async function title(url) {
     //return html;
 }
 
-async function getSongs(episodesLinks) {
+async function getSongs(links) {
     var result = [];
-    for (const { name, link } of episodesLinks) {
+    for (const { name, link } of links) {
         await page.goto(link);
         await page.waitForSelector('.container');
         const songs = await page.$$('div[class^="SongRow_container"]');
