@@ -1,6 +1,6 @@
 {
-  "name": "boxrec-puppeteer",
-  "description": "makes HTTP requests to Boxrec and returns the HTML of a boxer or the scoring of a bout",
+  "name": "tunefind-puppeteer",
+  "description": "Retrieves songs and artists of movies, series",
   "dependencies": {
     "puppeteer": "^19.3.0",
     "puppeteer-extra": "^3.3.4",
@@ -8,7 +8,7 @@
     "yargs": "^17.6.2"
   },
   "keywords": [
-    "tunefind"
+    "tunefind", "scraper", "puppeteer"
   ],
   "repository": {
     "type": "git",

@@ -11,7 +11,7 @@ module.exports = {
 };
 
 async function title(url) {
-    const browser = await puppeteer.launch({ headless: false, executablePath: executablePath() });
+    const browser = await puppeteer.launch({ headless: true, executablePath: executablePath() });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setViewport({ width: 1200, height: 720 });
