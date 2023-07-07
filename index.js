@@ -21,7 +21,6 @@ if (argv._.includes('title')) {
             }
             let result = await scraper.title(argv.url);
             process.stdout.write(JSON.stringify(result));
-            //console.log(result);
             process.exit(0);
         })()
     } catch (err) {
