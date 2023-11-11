@@ -8,10 +8,18 @@
     "yargs": "^17.6.2"
   },
   "keywords": [
-    "tunefind", "scraper", "puppeteer"
+    "tunefind",
+    "scraper",
+    "puppeteer"
   ],
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
+  "scripts": {
+    "test": "mocha index.test.js"
   }
 }
