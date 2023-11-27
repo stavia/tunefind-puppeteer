@@ -2,7 +2,7 @@ const yargs = require('yargs');
 const scraper = require('./scraper');
 
 const argv = yargs
-    .command('title [url]', 'Returns the HTML of the title', {
+    .command('title [url]', 'Returns the soundtrack of the title', {
         id: {
             description: 'URL of the title in tunefind. For example: https://www.tunefind.com/show/the-last-of-us/season-1',
             type: 'string',

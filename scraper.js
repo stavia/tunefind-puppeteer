@@ -19,29 +19,26 @@ async function title(url) {
     await closeCookieModal(page);
     let movie = await page.$eval('.ant-select-selector', () => false).catch(() => true);
     let result = [];
-    try {
-        if (movie) {
-            result = await getSongs(page, null);
-        } else {
-            const seasonSelector = "h4[class^='BlocksHeadings__H4']";
+    if (movie) {
+        result = await getSongs(page, null);
+    } else {
+        const seasonSelector = "h4[class^='BlocksHeadings__H4']";
+        await page.waitForSelector(seasonSelector);
+        let seasons = await page.$$(seasonSelector);
+        const numberOfSeasons = seasons.length;
+        let resultEpisode = [];
+        for (let index = 0; index < numberOfSeasons; index++) {
             await page.waitForSelector(seasonSelector);
-            let seasons = await page.$$(seasonSelector);
-            const numberOfSeasons = seasons.length;
-            let resultEpisode = [];
-            for (let index = 0; index < numberOfSeasons; index++) {
-                await page.waitForSelector(seasonSelector);
-                seasons = await page.$$(seasonSelector);
-                resultEpisode = await getSongsBySeason(page, seasons[index], index + 1);
-                result = result.concat(resultEpisode);
-                if (index < numberOfSeasons - 1) {
-                    await page.goto(url);
-                    await page.waitForTimeout(4000);
-                }
+            seasons = await page.$$(seasonSelector);
+            resultEpisode = await getSongsBySeason(page, seasons[index], index + 1);
+            result = result.concat(resultEpisode);
+            if (index < numberOfSeasons - 1) {
+                await page.goto(url);
+                await page.waitForTimeout(4000);
             }
         }
-    } catch (error) {
-        console.log(error);
     }
+
     return result;
 }
 
